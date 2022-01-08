@@ -1,14 +1,46 @@
 * Apple Wallet Pass Inspector
-This CLI tools allows you to inspect metadata about an Apple Wallet Pass archive.
+This CLI tools allows you to inspect metadata about an [[https://developer.apple.com/documentation/walletpasses][Apple Wallet Pass]] archive.
 These files often have the extension ~.pkpass~.
 You can read more about the structure of a ~Pass~ [[https://developer.apple.com/documentation/walletpasses/pass][in the official Apple documentation]].
 ** Install
 Simply download a release from releases, or build from source.
+** Example
+#+BEGIN_EXAMPLE
+$ wallet-inspector example.pkpass
+
+General
+Description           : Votiv Kino: Großer Saal: Reihe 5, Sitz 10
+Format Version        : 1
+Org Name              : NTRY
+Pass Type Identifier  : pass.at.ntry.ticket
+Serial Number         : cine_ticket_4921743
+Team Identifier       : 6KAP4F4G72
+Relevant Date         : 2022-01-04T18:30:00+01:00
+
+Locations
+  Lon: 0          Lat: 0          Alt: 0      RelText:
+
+Barcodes
+  Msg: LAQGHBGJBS MsgEnc: iso-8859-1 Fmt: PKBarcodeFormatAztec AltTxt: LAQGHBGJBS
+
+Fields
+  Primary Fields
+    changeMessage    :
+    textAlignment    : PKTextAlignmentLeft
+    label            : Film
+    key              : presentation_title
+    value            : Drive My Car
+  Secondary Fields
+    key              : date
+    label            : Datum
+    textAlignment    : PKTextAlignmentLeft
+...
+#+END_EXAMPLE
 ** Build
 This project depends on:
 - [[http://www.sbcl.org][SBCL]]
 - [[https://www.quicklisp.org/beta/][Quicklisp]]
 - [[https://www.gnu.org/software/make/][GNU Make]]
   
-In the project root, run `make` to build a release.
-Run `make install` to install the binary.
+In the project root, run ~make~ to build a release.
+Run ~make install~ to install the binary.
