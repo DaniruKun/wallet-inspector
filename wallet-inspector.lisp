@@ -24,7 +24,7 @@
 
 ;; Constants ---------------------------------------------------------
 
-(defconstant version "0.1.0")
+(defconstant version "0.1.1")
 
 (defstruct pass
   "Structure defining an Apple Wallet Pass."
@@ -36,6 +36,7 @@
   (team-identifier (error "teamIdentifier is missing") :type string)
   relevant-date
   locations
+  barcode
   barcodes
   event-ticket
   boarding-pass
@@ -66,19 +67,21 @@ E.g. (=> \"somekey\")"
 
 (defun make-barcode-from-json (json)
   "Create a barcode struct from a JSOWN object."
-  (create-barcode
-   (=> "message")
-   (=> "messageEncoding")
-   (=> "format")
-   (or (=> "altText") "")))
+  (when json
+    (create-barcode
+     (=> "message")
+     (=> "messageEncoding")
+     (=> "format")
+     (or (=> "altText") ""))))
 
 (defun print-barcode (barcode)
   "Pretty print a BARCODE struct of type PASS-BARCODE."
-  (format t "  Msg: ~10a MsgEnc: ~10a Fmt: ~20a AltTxt: ~10a~%"
-          (pass-barcode-message barcode)
-          (pass-barcode-message-encoding barcode)
-          (pass-barcode-format barcode)
-          (pass-barcode-alt-text barcode)))
+  (when barcode
+    (format t "  Msg: ~10a MsgEnc: ~10a Fmt: ~20a AltTxt: ~10a~%"
+            (pass-barcode-message barcode)
+            (pass-barcode-message-encoding barcode)
+            (pass-barcode-format barcode)
+            (pass-barcode-alt-text barcode))))
 
 (defstruct (pass-location (:constructor create-location
                            (longitude latitude relevant-text altitude)))
@@ -177,6 +180,7 @@ E.g. (=> \"somekey\")"
    :serial-number (=> "serialNumber")
    :team-identifier (=> "teamIdentifier")
    :relevant-date (=> "relevantDate")
+   :barcode (make-barcode-from-json (=> "barcode"))
    :locations (mapcar #'make-location-from-json (=> "locations"))
    :barcodes (mapcar #'make-barcode-from-json (=> "barcodes"))
    :event-ticket (make-pass-generic-from-json (=> "eventTicket"))
@@ -205,6 +209,8 @@ E.g. (=> \"somekey\")"
             general-info)
     (format t "~%Locations~%")
     (mapcar #'print-location (pass-locations pass))
+    (format t "~%Barcode (Legacy)~%")
+    (print-barcode (pass-barcode pass))
     (format t "~%Barcodes~%")
     (mapcar #'print-barcode (pass-barcodes pass))
     (format t "~%Fields~%")
