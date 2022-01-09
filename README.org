@@ -41,6 +41,8 @@ This project depends on:
 - [[http://www.sbcl.org][SBCL]]
 - [[https://www.quicklisp.org/beta/][Quicklisp]]
 - [[https://www.gnu.org/software/make/][GNU Make]]
+** Test
+Run tests with ~make test~.
   
 In the project root, run ~make~ to build a release.
 Run ~make install~ to install the binary.
