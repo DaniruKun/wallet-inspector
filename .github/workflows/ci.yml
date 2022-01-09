@@ -14,8 +14,5 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: ./install-for-ci.sh && make
-
-    - name: Run check
-      run: make test
+    - name: Install dependencies and test
+      run: ./install-for-ci.sh && make && make test
