@@ -24,7 +24,7 @@
 
 ;; Constants ---------------------------------------------------------
 
-(defconstant version "0.1.1")
+(defconstant version "0.1.2")
 
 (defstruct pass
   "Structure defining an Apple Wallet Pass."
@@ -34,6 +34,15 @@
   (pass-type-identifier (error "passTypeIdentifier is missing") :type string)
   (serial-number (error "serialNumber is missing") :type string)
   (team-identifier (error "teamIdentifier is missing") :type string)
+  app-launch-url
+  authentication-token
+  background-color
+  foreground-color
+  label-color
+  logo-text
+  max-distance
+  sharing-prohibited
+  web-service-url
   relevant-date
   locations
   barcode
@@ -180,6 +189,15 @@ E.g. (=> \"somekey\")"
    :serial-number (=> "serialNumber")
    :team-identifier (=> "teamIdentifier")
    :relevant-date (=> "relevantDate")
+   :app-launch-url (=> "appLaunchURL")
+   :authentication-token (=> "authenticationToken")
+   :background-color (=> "backgroundColor")
+   :foreground-color (=> "foregroundColor")
+   :label-color (=> "labelColor")
+   :logo-text (=> "logoText")
+   :max-distance (=> "maxDistance")
+   :sharing-prohibited (=> "sharingProhibited")
+   :web-service-url (=> "webServiceURL")
    :barcode (make-barcode-from-json (=> "barcode"))
    :locations (mapcar #'make-location-from-json (=> "locations"))
    :barcodes (mapcar #'make-barcode-from-json (=> "barcodes"))
@@ -197,7 +215,16 @@ E.g. (=> \"somekey\")"
                         ("Pass Type Identifier" ,#'pass-pass-type-identifier)
                         ("Serial Number" ,#'pass-serial-number)
                         ("Team Identifier" ,#'pass-team-identifier)
-                        ("Relevant Date" ,#'pass-relevant-date)))
+                        ("Relevant Date" ,#'pass-relevant-date)
+						("App Launch URL" ,#'pass-app-launch-url)
+						("Authentication Token" ,#'pass-authentication-token)
+						("Bg Color" ,#'pass-background-color)
+						("Fg Color" ,#'pass-foreground-color)
+						("Label Color" ,#'pass-label-color)
+						("Logo Text" ,#'pass-logo-text)
+						("Max Distance" ,#'pass-max-distance)
+						("Sharing Prohibited" ,#'pass-sharing-prohibited)
+						("Web Service URL" ,#'pass-web-service-url)))
         (event-ticket (pass-event-ticket pass))
         (store-card (pass-store-card pass))
         (coupon (pass-coupon pass))
