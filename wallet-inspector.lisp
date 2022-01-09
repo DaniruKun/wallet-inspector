@@ -52,7 +52,7 @@
   secondary-fields)
 
 (defstruct (pass-barcode (:constructor create-barcode
-                           (message message-encoding format alt-text)))
+                          (message message-encoding format alt-text)))
   "Structure that represents a barcode on a Pass."
   alt-text
   format
@@ -81,7 +81,7 @@ E.g. (=> \"somekey\")"
           (pass-barcode-alt-text barcode)))
 
 (defstruct (pass-location (:constructor create-location
-                         (longitude latitude relevant-text altitude)))
+                           (longitude latitude relevant-text altitude)))
   "Structure that represents a location that the system uses to show a relevant pass."
   longitude
   latitude
@@ -230,10 +230,10 @@ E.g. (=> \"somekey\")"
 ;; CLI ---------------------------------------------------------------
 
 (opts:define-opts
-  (:name :help
-   :description "Print this help text"
-   :short #\h
-   :long "help")
+    (:name :help
+     :description "Print this help text"
+     :short #\h
+     :long "help")
   (:name :version
    :description "Print the tool version"
    :short #\v
